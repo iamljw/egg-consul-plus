@@ -42,6 +42,13 @@ egg-consul-plus 版本 | egg 1.x
 - multipart
 
 -->
+## 安装插件
+
+```bash
+$ npm i egg-consul-plus
+// 或者
+$ yarn add egg-consul-plus
+```
 
 ## 开启插件
 
