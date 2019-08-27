@@ -1,0 +1,9 @@
+{
+  "extends": "eslint-config-egg",
+  "rules": {
+    "indent": [2, 4,{ "SwitchCase": 1 }],
+    "comma-dangle": ["error", "never"],
+    "array-bracket-spacing":["error","never"]
+  }
+  
+}
