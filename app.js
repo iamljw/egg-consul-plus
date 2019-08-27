@@ -18,10 +18,10 @@ function fromCallback(fn) {
     });
 }
 /**
- * 服务注册
+ * 初始化consul客户端
  * @param {Application} app app
  */
-async function regConsul(app) {
+async function initClient(app) {
     const { config } = app;
     const { consul: consulConf } = config;
     const consul = require('consul')(Object.assign({},
@@ -31,8 +31,17 @@ async function regConsul(app) {
             secure: false
         }));
     app.consul = consul;
-
-    await consul.agent.service.register(consulConf);
+}
+/**
+ * 注册服务
+ * @param {Application} app app
+ */
+async function regService(app) {
+    const { config } = app;
+    const { consul: consulConf } = config;
+    if (consulConf.register) {
+        await app.consul.agent.service.register(app.config.consul);
+    }
 }
 /**
  * 服务发现
@@ -67,8 +76,10 @@ async function findService(app) {
 module.exports = app => {
     app.beforeStart(async () => {
 
+        // ------------ 初始化consul客户端 ------------
+        await initClient(app);
         // ------------ 服务注册 ------------
-        await regConsul(app);
+        await regService(app);
         // ------------ 服务发现 ------------
         await findService(app);
     });

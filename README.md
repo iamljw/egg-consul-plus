@@ -24,39 +24,75 @@
 Description here.
 -->
 
-## Install
+## 依赖说明
 
-```bash
-$ npm i egg-consul-plus --save
-```
+### 依赖的 egg 版本
 
-## Usage
+egg-consul-plus 版本 | egg 1.x
+--- | ---
+1.x | 😁
+0.x | ❌
+
+### 依赖的插件
+<!--
+
+如果有依赖其它插件，请在这里特别说明。如
+
+- security
+- multipart
+
+-->
+
+## 开启插件
 
 ```js
-// {app_root}/config/plugin.js
+// config/plugin.js
 exports.consulPlus = {
   enable: true,
   package: 'egg-consul-plus',
 };
 ```
 
-## Configuration
+## 使用场景
+
+- Why and What: 基于 consul 开发的 egg 插件，实现服务的自动注册和发现。
+- How: 开启插件后会在当前应用实例 app 上挂载 consul 客户端和 services 服务列表，分别用`app.consul`和`app.services`进行引用。
+## 详细配置
 
 ```js
-// {app_root}/config/config.default.js
-exports.consulPlus = {
-};
+consul: {
+    server: {
+        host: '127.0.0.1', // 注册中心ip地址
+        port: 8500 // 注册中心端口号
+    },
+    services: [ // 服务发现列表
+        {
+            referName: 'consulPlusTest', // 引用名，后续可用 app.services.referName 访问服务
+            comment: 'consulPlusTest', // 备注
+            serviceId: 'consul-plus-test' // 服务id
+        }
+    ],
+    register: true, // 是否注册当前模块，默认为false
+    name: 'consul-plus-test', // 注册id
+    tags: ['consul-plus-test'], // 标签信息
+    check: {
+        http: 'http://127.0.0.1:7777', // 健康检测地址
+        interval: '5s', // 健康检测间隔
+        notes: 'http service check',
+        status: 'critical'
+    },
+    address: '127.0.0.1', // 当前模块的注册地址
+    port: 7777 // 当前模块的注册端口号
+}
 ```
 
-see [config/config.default.js](config/config.default.js) for more detail.
+## 单元测试
 
-## Example
+<!-- 描述如何在单元测试中使用此插件，例如 schedule 如何触发。无则省略。-->
 
-<!-- example here -->
+## 提问交流
 
-## Questions & Suggestions
-
-Please open an issue [here](https://github.com/eggjs/egg/issues).
+请到 [egg issues](https://github.com/iamljw/egg-consul-plus/issues) 异步交流。
 
 ## License
 
