@@ -62,8 +62,10 @@ exports.consulPlus = {
 
 ## 使用场景
 
-- Why and What: 基于 consul 开发的 egg 插件，实现服务的自动注册和发现。
+- Why and What: 基于 consul 开发的 egg 插件，实现服务的自动注册和发现，多实例模式和简单的负载均衡、服务熔断。
 - How: 开启插件后会在当前应用实例 app 上挂载 consul 客户端和 services 服务列表，分别用`app.consul`和`app.services`进行引用。
+*注意：当开启多实例(multiInstance为true)，app.services.referName会切换为异步获取，返回值为Promise对象*
+
 ## 详细配置
 
 ```js
@@ -80,6 +82,7 @@ consul: {
         }
     ],
     register: true, // 是否注册当前模块，默认为false
+    multiInstance: true, // 多实例模式开关，默认为false，注意当开启多实例，务必保证集群中的每个项目的keys不同，或者会导致先启动的项目被隔离(被覆盖)
     name: 'consul-plus-test', // 注册id
     tags: ['consul-plus-test'], // 标签信息
     check: {
@@ -99,7 +102,7 @@ consul: {
 
 ## 提问交流
 
-请到 [egg issues](https://github.com/iamljw/egg-consul-plus/issues) 异步交流。
+请到 [egg-consul-plus issues](https://github.com/iamljw/egg-consul-plus/issues) 异步交流。
 
 ## License
 
