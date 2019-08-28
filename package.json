@@ -1,12 +1,16 @@
 {
   "name": "egg-consul-plus",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "egg plugin, base on consul lib",
   "eggPlugin": {
     "name": "consulPlus"
   },
   "keywords": [
     "consul",
+    "service",
+    "LB",
+    "load",
+    "balance",
     "egg",
     "eggPlugin",
     "egg-plugin"
@@ -48,12 +52,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-consul-plus.git"
+    "url": "git+https://github.com/iamljw/egg-consul-plus.git"
   },
   "bugs": {
     "url": "https://github.com/iamljw/egg-consul-plus/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-consul-plus#readme",
+  "homepage": "https://github.com/iamljw/egg-consul-plus#readme",
   "author": "iamljw",
   "license": "MIT"
 }
